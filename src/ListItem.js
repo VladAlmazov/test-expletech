@@ -3,11 +3,10 @@ import {randomColor} from "./List";
 
 const ListItem = React.memo(({item: {id, value}, checkedIds, onCheck}) => {
 
+    //Memorised value (Запам'ятовує значення)
     const background = useMemo(() => `#${randomColor()}`, [checkedIds.includes(id)]);
 
-    const handleChange = (e) => {
-        return onCheck(e.currentTarget.checked, id);
-    }
+    const handleChange = (e) => onCheck(e.currentTarget.checked, id);
 
     return (
         <div style={{userSelect: 'none', background}}>

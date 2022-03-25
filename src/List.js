@@ -10,14 +10,10 @@ const List = () => {
         const [list, setList] = useState(initialList);
         const [checkedIds, setChecked] = useState([]);
 
-        const shuffle = (array) => {
-            let copy = [...array]
-            return copy.sort(() => Math.random() - 0.5);
-        }
+        // Shuffle function(функція перемішувач)
+        const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
 
-        const handleShuffle = useCallback(() => {
-            setList(shuffle(list))
-        }, [list]);
+        const handleShuffle = useCallback(() => setList(shuffle(list)), [list]);
 
         const handleCheck = useCallback((checked, id) => {
             setChecked(checked
@@ -39,7 +35,6 @@ const List = () => {
                         return <ListItem
                             key={item.id}
                             item={item}
-                            // checkedIds={checkedIds.includes(item.id)}
                             checkedIds={checkedIds}
                             onCheck={handleCheck}
                         />

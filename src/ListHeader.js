@@ -3,6 +3,7 @@ import {randomColor} from "./List";
 
 const ListHeader = ({checkedItemsLength, onShuffle, checkedIds}) => {
 
+    //Memorised value if checkedIds don't changes (Запам'ятовує значення, якщо checkedIds не змінюється)
     const background = useMemo(() => `#${randomColor()}`, [checkedIds]);
 
     return <>
