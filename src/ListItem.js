@@ -1,12 +1,14 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {randomColor} from "./List";
 
-const ListItem = React.memo(({item: {id, value}, checkedIds, onCheck}) => {
+const ListItem = ({item: {id, value}, checkedIds, onCheck}) => {
+
+    console.log('RENDER')
 
     //Memorised value (Запам'ятовує значення)
     const background = useMemo(() => `#${randomColor()}`, [checkedIds.includes(id)]);
 
-    const handleChange = (e) => onCheck(e.currentTarget.checked, id);
+    const handleChange = useCallback((e) => onCheck(e.currentTarget.checked, id), [id])
 
     return (
         <div style={{userSelect: 'none', background}}>
@@ -19,6 +21,10 @@ const ListItem = React.memo(({item: {id, value}, checkedIds, onCheck}) => {
             <label htmlFor={id}> {value}; renderID: {background} </label>
         </div>
     );
-})
+}
 
-export default ListItem;
+const compareFn = (prevProps, nextProps) => {
+    return nextProps.checkedIds.includes(nextProps.item.id) === prevProps.checkedIds.includes(prevProps.item.id)
+}
+
+export default React.memo(ListItem, compareFn);
